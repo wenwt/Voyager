@@ -23,7 +23,7 @@ class Voyager:
         openai_api_key: str = None,
         env_wait_ticks: int = 20,
         env_request_timeout: int = 600,
-        max_iterations: int = 1,#原：160
+        max_iterations: int = 160,
         reset_placed_if_failed: bool = False,
         action_agent_model_name: str = "gpt-4",
         action_agent_temperature: float = 0,
@@ -216,6 +216,8 @@ class Voyager:
                 code,
                 programs=self.skill_manager.programs,
             )
+            inventory = events[-1][1]["inventory"]
+            print(f"\033[34m****Inventory****\n{inventory}\033[0m")
             self.recorder.record(events, self.task)
             self.action_agent.update_chest_memory(events[-1][1]["nearbyChests"])
             success, critique = self.critic_agent.check_task_success(

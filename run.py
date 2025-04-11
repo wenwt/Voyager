@@ -6,6 +6,7 @@ os.environ["OPENAI_API_BASE"] = 'https://api.openai-proxy.org/v1'
 '''
 
 from voyager import Voyager
+import os
 
 # You can also use mc_port instead of azure_login, but azure_login is highly recommended
 # azure_login = {
@@ -14,11 +15,10 @@ from voyager import Voyager
 #     "secret_value": "[OPTIONAL] YOUR_SECRET_VALUE",
 #     "version": "fabric-loader-0.14.18-1.19", # the version Voyager is tested on
 # }
-mc_port = 59346
+mc_port = 53131
 openai_api_key = 'sk-TGOGpi26g4e42W2TWilFLKmrB8bbLgJSUsJf6PtjymcZ0ZO6'
-import os
 os.environ["OPENAI_API_BASE"] = 'https://api.openai-proxy.org/v1'
-
+ckpt_dir = os.path.abspath("ckpt")
 
 action_agent_model_name: str = "gpt-4",
 curriculum_agent_model_name: str = "gpt-4",
@@ -30,10 +30,12 @@ voyager = Voyager(
     mc_port=mc_port,
     openai_api_key=openai_api_key,
     action_agent_model_name= "claude-3-7-sonnet-20250219",
-    curriculum_agent_model_name = "deepseek-chat",
+    curriculum_agent_model_name = "claude-3-7-sonnet-20250219",
     curriculum_agent_qa_model_name = "deepseek-chat",
     critic_agent_model_name= "deepseek-chat",
     skill_manager_model_name = "deepseek-chat",
+    max_iterations = 2,
+    ckpt_dir = ckpt_dir
 )
 
 # start lifelong learning
